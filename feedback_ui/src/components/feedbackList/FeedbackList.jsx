@@ -8,7 +8,7 @@ const FeedbackList = ({ feedback }) => {
   return (
     <div className="feedback-list">
       {feedback.map((item) => (
-        <FeedbackItem rating={item.rating} text={item.text} key={item.text} />
+        <FeedbackItem rating={item.rating} text={item.text} key={item.id} />
       ))}
     </div>
   );
