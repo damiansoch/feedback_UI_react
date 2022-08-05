@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 import Card from '../shared/card';
 import Button from '../shared/Button';
@@ -6,11 +6,21 @@ import Rating from '../rating/Rating';
 import FeedbackContext from '../../context/feedbackContext';
 
 const FeedbackForm = ({ handleAdd }) => {
-  const { addFeedback } = useContext(FeedbackContext);
+  const { addFeedback, feedbackEdit, updateFeedback } =
+    useContext(FeedbackContext);
+  //whenever feedbackEdit changes wee need to do something, thi si sideeffect so we need to use useEffects
   const [text, setText] = useState('');
   const [isdisabled, setIsDisabled] = useState(true);
   const [message, setMessage] = useState('');
   const [rating, setRating] = useState(10);
+
+  useEffect(() => {
+    if (feedbackEdit.edit) {
+      setIsDisabled(false);
+      setText(feedbackEdit.item.text);
+      setRating(feedbackEdit.item.rating);
+    }
+  }, [feedbackEdit]);
 
   const handleTextChange = (event) => {
     if (text.trim().length <= 9) {
@@ -30,7 +40,13 @@ const FeedbackForm = ({ handleAdd }) => {
         text,
         rating,
       };
-      addFeedback(newFeedback);
+
+      if (feedbackEdit.edit) {
+        updateFeedback(feedbackEdit.item.id, newFeedback);
+      } else {
+        addFeedback(newFeedback);
+      }
+
       setText('');
     }
   };

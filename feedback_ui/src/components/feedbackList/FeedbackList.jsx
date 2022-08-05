@@ -20,12 +20,7 @@ const FeedbackList = ({ handleDelete }) => {
             animate={{ scale: 1, transition: { duration: 0.6 } }}
             exit={{ scale: 0, transition: { duration: 0.6 } }}
           >
-            <FeedbackItem
-              rating={item.rating}
-              text={item.text}
-              key={item.id}
-              id={item.id}
-            />
+            <FeedbackItem item={item} />
           </motion.div>
         ))}
       </AnimatePresence>
