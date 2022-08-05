@@ -1,10 +1,14 @@
-const FeedbackStats = ({ feedback }) => {
+import FeedbackContext from '../../context/feedbackContext';
+import { useContext } from 'react';
+
+const FeedbackStats = () => {
+  const { feedback } = useContext(FeedbackContext);
   const feedbackNumber = feedback.length;
 
   let avarage = feedback.reduce((acc, cur) => {
     return acc + cur.rating;
   }, 0);
-  avarage = (avarage / feedbackNumber).toFixed(1).replace(/[.,]0$/, "");
+  avarage = (avarage / feedbackNumber).toFixed(1).replace(/[.,]0$/, '');
 
   return (
     <div className="feedback-stats">

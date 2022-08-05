@@ -1,39 +1,26 @@
-import { v4 as uuidv4 } from "uuid";
-import { useState } from "react";
-import FeedbackData from "./data/data";
-import FeedbackList from "./components/feedbackList/FeedbackList";
-import FeedbackStats from "./components/FeedbackStats/FeedbackStats";
-import FeedbackForm from "./components/feedbackForm/FeedbackForm";
+import FeedbackList from './components/feedbackList/FeedbackList';
+import FeedbackStats from './components/FeedbackStats/FeedbackStats';
+import FeedbackForm from './components/feedbackForm/FeedbackForm';
+import { FeedbackProvider } from './context/feedbackContext';
 
-import "./App.css";
+import './App.css';
 
-import Header from "./components/Header/Header";
+import Header from './components/Header/Header';
 
 function App() {
   //global state
-  const [feedback, setFeedback] = useState(FeedbackData);
-  const deleteFeedback = (id) => {
-    if (window.confirm("Are you sure you want to delete?")) {
-      setFeedback(feedback.filter((item) => item.id !== id));
-    }
-  };
-
-  const addFeedback = (newFeedback) => {
-    newFeedback.id = uuidv4();
-    setFeedback([newFeedback, ...feedback]);
-  };
 
   return (
-    <>
+    <FeedbackProvider>
       <Header />
       <div className="container">
-        <FeedbackForm handleAdd={addFeedback} />
+        <FeedbackForm />
 
-        <FeedbackStats feedback={feedback} />
+        <FeedbackStats />
 
-        <FeedbackList feedback={feedback} handleDelete={deleteFeedback} />
+        <FeedbackList />
       </div>
-    </>
+    </FeedbackProvider>
   );
 }
 

@@ -1,18 +1,21 @@
-import { useState } from "react";
-import Card from "../shared/card";
-import Button from "../shared/Button";
-import Rating from "../rating/Rating";
+import { useContext, useState } from 'react';
+
+import Card from '../shared/card';
+import Button from '../shared/Button';
+import Rating from '../rating/Rating';
+import FeedbackContext from '../../context/feedbackContext';
 
 const FeedbackForm = ({ handleAdd }) => {
-  const [text, setText] = useState("");
+  const { addFeedback } = useContext(FeedbackContext);
+  const [text, setText] = useState('');
   const [isdisabled, setIsDisabled] = useState(true);
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState('');
   const [rating, setRating] = useState(10);
 
   const handleTextChange = (event) => {
     if (text.trim().length <= 9) {
       setIsDisabled(true);
-      setMessage("Min 10 chars...");
+      setMessage('Min 10 chars...');
     } else {
       setIsDisabled(false);
       setMessage(null);
@@ -27,8 +30,8 @@ const FeedbackForm = ({ handleAdd }) => {
         text,
         rating,
       };
-      handleAdd(newFeedback);
-      setText("");
+      addFeedback(newFeedback);
+      setText('');
     }
   };
 
