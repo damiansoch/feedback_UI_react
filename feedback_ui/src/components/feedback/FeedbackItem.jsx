@@ -1,10 +1,10 @@
-import { useContext } from 'react';
+import { useContext } from "react";
 
-import { FaTimes, FaEdit } from 'react-icons/fa';
-import Card from '../shared/card';
-import FeedbackContext from '../../context/feedbackContext';
+import { FaTimes, FaEdit } from "react-icons/fa";
+import Card from "../shared/card";
+import FeedbackContext from "../../context/feedbackContext";
 
-const FeedbackItem = ({ rating, text, id, handleDelete }) => {
+const FeedbackItem = ({ rating, text, id }) => {
   const { deleteFeedback, editFeedback } = useContext(FeedbackContext);
   return (
     <Card>
@@ -14,7 +14,7 @@ const FeedbackItem = ({ rating, text, id, handleDelete }) => {
       </button>
       <button className="edit">
         <FaEdit
-          onClick={() => editFeedback(id, text)}
+          onClick={() => editFeedback(id, text, rating)}
           color="purple"
           size="20px"
         />

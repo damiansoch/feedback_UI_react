@@ -1,15 +1,20 @@
-import { useState, createContext } from 'react';
-import { v4 as uuidv4 } from 'uuid';
+import { useState, createContext } from "react";
+import { v4 as uuidv4 } from "uuid";
 
-import FeedbackData from '../data/data';
+import FeedbackData from "../data/data";
 
 const FeedbackContext = createContext();
 
 export const FeedbackProvider = ({ children }) => {
   const [feedback, setFeedback] = useState(FeedbackData);
 
+  const [feedbackEdit, setFeedbackEdit] = useState({
+    item: {},
+    edit: false,
+  });
+
   const deleteFeedback = (id) => {
-    if (window.confirm('Are you sure you want to delete?')) {
+    if (window.confirm("Are you sure you want to delete?")) {
       setFeedback(feedback.filter((item) => item.id !== id));
     }
   };
@@ -19,8 +24,8 @@ export const FeedbackProvider = ({ children }) => {
     setFeedback([newFeedback, ...feedback]);
   };
 
-  const editFeedback = (id, text) => {
-    console.log(text);
+  const editFeedback = (id) => {
+    console.log(id);
   };
 
   return (
